@@ -3,6 +3,8 @@ import color_constants
 from Node import Node
 from a_star import run_a_star
 from bfs import run_bfs
+from dijkstra import run_dijkstra
+from dfs import run_dfs
 
 
 WIDTH = 800
@@ -66,7 +68,9 @@ def main(win, width):
 
 def algorithm(draw, grid, start, end):
     # run_a_star(draw, grid, start, end)
-    run_bfs(draw, grid, start, end)
+    # run_bfs(draw, grid, start, end)
+    # run_dijkstra(draw, grid, start, end)
+    run_dfs(draw, grid, start, end)
 
 # Creates 2D array for grid
 def make_grid(rows, width):
