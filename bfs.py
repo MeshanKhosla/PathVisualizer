@@ -14,7 +14,7 @@ def run_bfs(draw, grid, start, end):
         next = []
         for node in queue:
             current_node = node
-
+            
             if current_node == end:
                 reconstruct_path(came_from, end, draw)
                 end.make_end()
@@ -36,6 +36,12 @@ def run_bfs(draw, grid, start, end):
         
 def reconstruct_path(came_from, current, draw):
     while current in came_from:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+
         current = came_from[current]   # Goes backwards until start node
         if current: current.make_path()
         draw()

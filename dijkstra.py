@@ -44,6 +44,11 @@ def run_dijkstra(draw, grid, start, end):
 
     
 def reconstruct_path(came_from, current, draw):
+
+    for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                
     while current in came_from:
         current = came_from[current]   # Goes backwards until start node
         if current: current.make_path()

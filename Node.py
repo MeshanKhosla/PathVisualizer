@@ -52,6 +52,9 @@ class Node:
 
     def make_path(self):
         self.color = color_constants.PURPLE
+
+    def make_cur_node(self):
+        self.color = color_constants.YELLOW
     
     def draw(self, win):
         # Draws the rectangle at         winPosX, winPosY with height and width of gap (16)

@@ -13,7 +13,7 @@ def run_dfs(draw, grid, start, end):
 
         current_node = queue.pop()
         visited.add(current_node)
-        current_node.make_open()
+        current_node.make_cur_node()
 
         if current_node == end:
             end.make_end()
@@ -27,6 +27,7 @@ def run_dfs(draw, grid, start, end):
         for neighbor in current_node.neighbors:
             neighbor.make_closed()
             if neighbor not in visited:
+                neighbor.make_open()
                 parent[neighbor] = current_node
                 queue.append(neighbor)
                 
@@ -40,6 +41,11 @@ def run_dfs(draw, grid, start, end):
 
 def reconstruct_path(came_from, current, draw):
     while current in came_from:
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
         current = came_from[current]   # Goes backwards until start node
         if current: current.make_path()
         draw()
