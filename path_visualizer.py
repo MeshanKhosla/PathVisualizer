@@ -1,3 +1,4 @@
+from os import name
 import pygame
 import color_constants
 from Node import Node
@@ -5,13 +6,16 @@ from a_star import run_a_star
 from bfs import run_bfs
 from dijkstra import run_dijkstra
 from dfs import run_dfs
+pygame.init()
 
-
+roboto_100 = pygame.font.SysFont("Roboto", 100)
+roboto_60 = pygame.font.SysFont("Roboto", 60)
+roboto_30 = pygame.font.SysFont("Roboto", 30)
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("Path Finding")
-
-def main(win, width):
+    
+def main(win, width, alg):
     ROWS = 50
     grid = make_grid(ROWS, width)
 
@@ -57,7 +61,7 @@ def main(win, width):
                     for row in grid:
                         for node in row:
                             node.update_neighbors(grid)
-                    algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end)
+                    algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end, alg)
                 
                 if event.key == pygame.K_r:  # Reset
                     start = None
@@ -66,11 +70,15 @@ def main(win, width):
                     grid = make_grid(ROWS, width)
     pygame.quit()
 
-def algorithm(draw, grid, start, end):
-    # run_a_star(draw, grid, start, end)
-    # run_bfs(draw, grid, start, end)
-    # run_dijkstra(draw, grid, start, end)
-    run_dfs(draw, grid, start, end)
+def algorithm(draw, grid, start, end, alg):
+    if alg == "dfs":
+        run_dfs(draw, grid, start, end)
+    elif alg == "bfs":
+        run_bfs(draw, grid, start, end)
+    elif alg == "dijkstra":
+        run_dijkstra(draw, grid, start, end)
+    else:
+        run_a_star(draw, grid, start, end)
 
 # Creates 2D array for grid
 def make_grid(rows, width):
@@ -116,4 +124,83 @@ def get_clicked_coordinates(pos, rows, width):
     row = y // gap
     col = x // gap
     return row, col
-main(WIN, WIDTH)
+
+
+
+def start_screen():
+    on_start_screen = True
+    padding = WIDTH // 100
+
+    # Creates algorithm buttons and position them responsively
+    a_star_btn = pygame.Rect(padding, WIDTH - (WIDTH // 3), (WIDTH // 4) - padding - 2, WIDTH // 8)
+    bfs_btn = pygame.Rect(a_star_btn.x + a_star_btn.width + (padding), WIDTH - (WIDTH // 3), (WIDTH // 4) - padding - 2, WIDTH // 8)
+    dijkstra_btn = pygame.Rect(bfs_btn.x + bfs_btn.width + (padding), WIDTH - (WIDTH // 3), (WIDTH // 4) - padding - 2, WIDTH // 8)
+    dfs_btn = pygame.Rect(dijkstra_btn.x + dijkstra_btn.width + (padding), WIDTH - (WIDTH // 3), (WIDTH // 4) - padding - 2, WIDTH // 8)
+    
+    # Creates algorithm button text
+    a_star_text = roboto_60.render("A*", 1, color_constants.WHITE)
+    bfs_text = roboto_60.render("BFS", 1, color_constants.WHITE)
+    dijkstra_text = roboto_60.render("Dijkstra", 1, color_constants.WHITE)
+    dfs_text = roboto_60.render("DFS", 1, color_constants.WHITE)
+
+    # Creates "Pathfinding Visualizer" text
+    starting_text_top = roboto_100.render("Pathfinding", 1, color_constants.WHITE)
+    starting_text_bottom = roboto_100.render("Visualizer", 1, color_constants.WHITE)
+
+    # Creates name text
+    name_text = roboto_30.render("By: Meshan Khosla", 1, color_constants.WHITE)
+
+    while on_start_screen:
+        WIN.fill(color_constants.NAVY_BLUE)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                on_start_screen = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if a_star_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "a_star")
+                if bfs_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "bfs")
+                if dijkstra_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "dijkstra")
+                if dfs_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "dfs")
+
+
+        # Draws "Pathfinding Visualizer" text
+        WIN.blit(starting_text_top, ((WIDTH // 2) - starting_text_top.get_width() // 2, WIDTH // 15))
+        WIN.blit(starting_text_bottom, (((WIDTH // 2 ) - (starting_text_bottom.get_width() // 2)), (WIDTH // 15) + starting_text_top.get_height() + 15))
+        
+        # Draws name text
+        WIN.blit(name_text, (WIDTH // 2 - name_text.get_width() // 2, (WIDTH // 15) + starting_text_top.get_height() + starting_text_bottom.get_height() + 25))
+
+        # Draws Algorithm buttons
+        pygame.draw.rect(WIN, color_constants.RED, a_star_btn)
+        pygame.draw.rect(WIN, color_constants.TURQUOISE, bfs_btn)
+        pygame.draw.rect(WIN, color_constants.BLACK, dijkstra_btn)
+        pygame.draw.rect(WIN, color_constants.PURPLE, dfs_btn)
+
+        # Draws Algorithm text on buttons
+        WIN.blit(a_star_text, (round(((a_star_btn.x + a_star_btn.width) // 2) - a_star_text.get_width() // 2), round(a_star_btn.y + a_star_text.get_height() // 1.5)))
+        WIN.blit(bfs_text, (round(bfs_btn.x + bfs_text.get_width() // 1.5), round(bfs_btn.y + bfs_text.get_height() // 1.5)))
+        WIN.blit(dijkstra_text, (round(dijkstra_btn.x + dijkstra_text.get_width() // 7), round(dijkstra_btn.y + dijkstra_text.get_height() // 1.5)))
+        WIN.blit(dfs_text, (round(dfs_btn.x + dfs_text.get_width() // 1.5), round(dfs_btn.y + dfs_text.get_height() // 1.5)))
+
+        pygame.display.update()
+        """
+        Instructions: 
+        1. Click which algorithm you want to visualize
+        2. Place the start and end position by right clicking on any grid spot
+        3. Place any barriers by right click/dragging on the grid
+        4. Press the space bar
+        If you'd like to try another visualization after the first one is done, press 'r'
+        If you'd like to return to this screen, press the ESC key
+        """
+
+start_screen()
