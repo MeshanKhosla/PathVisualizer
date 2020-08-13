@@ -9,3 +9,4 @@ ORANGE = (255, 165, 0)  # Starting color
 GREY = (128, 128, 128)
 TURQUOISE = (64, 224, 208)  # Ending color
 NAVY_BLUE = (28,46,74)
+CHARCOAL_GREY = (43,45,47)
