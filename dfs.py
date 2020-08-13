@@ -11,6 +11,7 @@ def run_dfs(draw, grid, start, end):
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+
         current_node = queue.pop()
         visited.add(current_node)
         current_node.make_cur_node()

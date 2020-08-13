@@ -128,19 +128,37 @@ def get_clicked_coordinates(pos, rows, width):
     col = x // gap
     return row, col
 
-def open_alg_info(alg):
+def alg_info_screen(alg):
     on_alg_info_screen = True
+
+    # Creates back button and title text
+    back_arrow = pygame.image.load('./assets/arrow.png')
+    alg_title_text = roboto_100.render(alg, 1, color_constants.WHITE)
 
     while on_alg_info_screen:
         WIN.fill(color_constants.CHARCOAL_GREY)
 
+        # Draws back button and title text
+        WIN.blit(back_arrow, (5, 5))
+        WIN.blit(alg_title_text, ((WIDTH // 2) - alg_title_text.get_width() // 2, WIDTH // 15))
+
+
+
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 on_alg_info_screen = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if back_arrow.get_rect().collidepoint(mouse_pos):
+                    on_alg_info_screen = False
+                    start_screen()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:  # Return to start screen
-                        on_alg_info_screen = False
-                        start_screen()
+                    on_alg_info_screen = False
+                    start_screen()
+        
+        
         
         pygame.display.update()
 
@@ -161,7 +179,7 @@ def start_screen():
     instruction_2_text = roboto_30.render("2. Place the start and end position by right clicking on any grid spot", 1, color_constants.WHITE)
     instruction_3_text = roboto_30.render("3. Place any barriers by right clicking/dragging on the grid", 1, color_constants.WHITE)
     instruction_4_text = roboto_30.render("4. Press the space bar to visualize", 1, color_constants.WHITE)
-    instruction_5_text = roboto_30.render("If you'd like to try another visualization after the first one is done, press 'r'", 1, color_constants.WHITE)
+    instruction_5_text = roboto_30.render("If you'd like to try another path after the first one is done, press 'r'", 1, color_constants.WHITE)
     instruction_6_text = roboto_30.render("If you'd like to return to this screen, press the ESC key", 1, color_constants.WHITE)
 
     # Creates algorithm buttons and position them responsively
@@ -176,7 +194,7 @@ def start_screen():
     dijkstra_text = roboto_60.render("Dijkstra", 1, color_constants.WHITE)
     dfs_text = roboto_60.render("DFS", 1, color_constants.WHITE)
 
-    # Cretes algorithm info button text
+    # Creates algorithm info button text
     a_star_info_text = roboto_30.render("A*", 1, color_constants.WHITE)
     bfs_info_text = roboto_30.render("BFS", 1, color_constants.WHITE)
     dijkstra_info_text = roboto_30.render("Dijkstra", 1, color_constants.WHITE)
@@ -185,37 +203,6 @@ def start_screen():
     
     while on_start_screen:
         WIN.fill(color_constants.NAVY_BLUE)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                on_start_screen = False
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = event.pos
-                if a_star_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    main(WIN, WIDTH, "a_star")
-                if bfs_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    main(WIN, WIDTH, "bfs")
-                if dijkstra_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    main(WIN, WIDTH, "dijkstra")
-                if dfs_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    main(WIN, WIDTH, "dfs")
-                if a_star_info_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    open_alg_info("A*")
-                if bfs_info_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    open_alg_info("Breadth First Search")
-                if dijkstra_info_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    open_alg_info("Dijkstra")
-                if dfs_info_btn.collidepoint(mouse_pos):
-                    on_start_screen = False
-                    open_alg_info("Depth First Search")
 
         # Draws name text
         WIN.blit(name_text, (WIDTH - name_text.get_width() - padding, padding + 5)) 
@@ -226,7 +213,7 @@ def start_screen():
         pygame.draw.rect(WIN, color_constants.WHITE, (((WIDTH // 2) - starting_text_top.get_width() // 2) - 15, starting_text_top.get_height() - 30, starting_text_top.get_width() + 30, starting_text_top.get_height() + starting_text_bottom.get_height() + 30), 3)
 
         # Draws Instruction text
-        WIN.blit(instruction_text, (WIDTH // 2 - (name_text.get_width() // 1.5), starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + 90))
+        WIN.blit(instruction_text, (WIDTH // 2 - (round(name_text.get_width() // 1.5)), starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + 90))
         WIN.blit(instruction_1_text, (15, starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 100))
         WIN.blit(instruction_2_text, (15, starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 140))
         WIN.blit(instruction_3_text, (15, starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 180))
@@ -255,12 +242,46 @@ def start_screen():
         # Draws algorithm info on info buttons
         WIN.blit(a_star_info_text, (a_star_info_btn.x + (a_star_info_text.get_width()) + (padding * 2), a_star_info_btn.y + (a_star_info_btn.height // 3) - padding))
         WIN.blit(bfs_info_text, (bfs_info_btn.x + bfs_info_text.get_width() - padding, bfs_info_btn.y + (bfs_info_btn.height // 3) - padding))
-        WIN.blit(dijkstra_info_text, (dijkstra_info_btn.x + (padding * 1.7), dijkstra_info_btn.y + (dijkstra_info_btn.height // 3) - padding))
-        WIN.blit(dfs_info_text, (dfs_info_btn.x + (padding * 3.5), dfs_info_btn.y + (dfs_info_btn.height // 3) - padding))
+        WIN.blit(dijkstra_info_text, (dijkstra_info_btn.x + round(padding * 1.7), dijkstra_info_btn.y + (dijkstra_info_btn.height // 3) - padding))
+        WIN.blit(dfs_info_text, (dfs_info_btn.x + round(padding * 3.5), dfs_info_btn.y + (dfs_info_btn.height // 3) - padding))
         WIN.blit(info_text, (a_star_info_btn.x + (a_star_info_text.get_width()) + padding, dfs_info_btn.y + (dfs_info_btn.height // 2)))
         WIN.blit(info_text, (bfs_info_btn.x + (bfs_info_text.get_width()) - padding, dfs_info_btn.y + (dfs_info_btn.height // 2)))
-        WIN.blit(info_text, (dijkstra_info_btn.x + (dijkstra_info_text.get_width()) - (padding * 5.5), dfs_info_btn.y + (dfs_info_btn.height // 2)))
+        WIN.blit(info_text, (dijkstra_info_btn.x + (dijkstra_info_text.get_width()) - round(padding * 5.5), dfs_info_btn.y + (dfs_info_btn.height // 2)))
         WIN.blit(info_text, (dfs_info_btn.x + (dfs_info_text.get_width()) - padding, dfs_info_btn.y + (dfs_info_btn.height // 2)))
+
+        # Goes at end of function to avoid not accessed error
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                on_start_screen = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos
+                if a_star_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "a_star")
+                if bfs_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "bfs")
+                if dijkstra_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "dijkstra")
+                if dfs_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    main(WIN, WIDTH, "dfs")
+                if a_star_info_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    alg_info_screen("A*")
+                if bfs_info_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    alg_info_screen("Breadth First Search")
+                if dijkstra_info_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    alg_info_screen("Dijkstra")
+                if dfs_info_btn.collidepoint(mouse_pos):
+                    on_start_screen = False
+                    alg_info_screen("Depth First Search")
+
+        
 
     
         pygame.display.update()
