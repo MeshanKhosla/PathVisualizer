@@ -1,9 +1,7 @@
-
-
 import pygame
 import color_constants
-from alg_info import info
-from start_screen import start_screen
+from screens.alg_info import info
+from screens.start_screen import start_screen
 
 def alg_info_screen(alg, WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main):
     on_alg_info_screen = True

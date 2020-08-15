@@ -1,12 +1,12 @@
 import pygame
 import color_constants
 from Node import Node
-from a_star import run_a_star
-from bfs import run_bfs
-from dijkstra import run_dijkstra
-from dfs import run_dfs
-from start_screen import start_screen
-from alg_info_screen import alg_info_screen
+from algorithms.a_star import run_a_star
+from algorithms.bfs import run_bfs
+from algorithms.dijkstra import run_dijkstra
+from algorithms.dfs import run_dfs
+from screens.start_screen import start_screen
+from screens.alg_info_screen import alg_info_screen
 
 pygame.init()
 
