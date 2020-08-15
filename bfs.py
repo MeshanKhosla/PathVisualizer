@@ -5,7 +5,6 @@ def run_bfs(draw, grid, start, end, reconstruct_path):
     queue = [start]
     checked = {start}
     parent = {start: None}
-    # current_node = None
 
     while queue:
         for event in pygame.event.get():
@@ -13,9 +12,7 @@ def run_bfs(draw, grid, start, end, reconstruct_path):
                 pygame.quit()
 
         next = []
-        for node in queue:
-            # current_node = node
-            
+        for node in queue:            
             if node == end:
                 reconstruct_path(parent, end, draw)
                 end.make_end()
