@@ -39,19 +39,5 @@ def run_dfs(draw, grid, start, end, reconstruct_path):
 
 
 
-# Throws error if using main file's reconstruct_path
-def reconstruct_path(came_from, current, draw):
-    while current in came_from:
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-        current = came_from[current]   # Goes backwards until start node
-        if current: current.make_path()
-        draw()
-
-
-
 
 

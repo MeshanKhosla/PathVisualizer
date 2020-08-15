@@ -1,5 +1,3 @@
-# TODO: Make it so you can exit during path finding, adjust info text
-
 import pygame
 import color_constants
 from Node import Node
@@ -7,7 +5,6 @@ from a_star import run_a_star
 from bfs import run_bfs
 from dijkstra import run_dijkstra
 from dfs import run_dfs
-from alg_info import info
 from start_screen import start_screen
 from alg_info_screen import alg_info_screen
 
@@ -23,11 +20,11 @@ pygame.display.set_caption("Path Finding")
 
 
 def reconstruct_path(parent, current, draw):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-
     while current in parent:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
         current = parent[current]   # Goes backwards until start node
         if current:
             current.make_path()
@@ -91,6 +88,7 @@ def main(win, width, alg):
                     running = False
                     start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
     pygame.quit()
+    exit()
 
 
 def algorithm(draw, grid, start, end, alg):
@@ -148,6 +146,6 @@ def get_clicked_coordinates(pos, rows, width):
     col = x // gap
     return row, col
 
-
-start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
+if __name__ == '__main__':  
+    start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
 

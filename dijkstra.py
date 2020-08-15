@@ -17,6 +17,7 @@ def run_dijkstra(draw, grid, start, end, reconstruct_path):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                    
         current_node = open_set.get()[2]  # 3rd parameter in open_set value is the actual node
         open_set_hash.remove(current_node)
 

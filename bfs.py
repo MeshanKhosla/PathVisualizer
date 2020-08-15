@@ -1,4 +1,3 @@
-from dfs import reconstruct_path
 import pygame
 
 def run_bfs(draw, grid, start, end, reconstruct_path):

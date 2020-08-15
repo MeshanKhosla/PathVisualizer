@@ -58,6 +58,6 @@ def alg_info_screen(alg, WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:  # Return to start screen
                     on_alg_info_screen = False
-                    start_screen(WIN, WIDTH, roboto_30, roboto_25, roboto_60, roboto_100, main, alg_info_screen)
+                    start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
 
         pygame.display.update()
