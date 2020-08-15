@@ -1,3 +1,5 @@
+# TODO: Make it so you can exit during path finding, adjust info text
+
 import pygame
 import color_constants
 from Node import Node

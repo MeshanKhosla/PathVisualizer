@@ -52,7 +52,6 @@ def start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, 
     dijkstra_info_text = roboto_30.render("Dijkstra", 1, color_constants.WHITE)
     dfs_info_text = roboto_30.render("DFS", 1, color_constants.WHITE)
     info_text = roboto_30.render("info", 1, color_constants.WHITE)
-
     while on_start_screen:
         WIN.fill(color_constants.NAVY_BLUE)
 
