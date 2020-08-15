@@ -1,9 +1,10 @@
+from dfs import reconstruct_path
 import pygame
 
-def run_bfs(draw, grid, start, end):
+def run_bfs(draw, grid, start, end, reconstruct_path):
     queue = [start]
     checked = {start}
-    came_from = {start: None}
+    parent = {start: None}
     # current_node = None
 
     while queue:
@@ -16,7 +17,7 @@ def run_bfs(draw, grid, start, end):
             # current_node = node
             
             if node == end:
-                reconstruct_path(came_from, end, draw)
+                reconstruct_path(parent, end, draw)
                 end.make_end()
                 start.make_start()
                 return True
@@ -25,7 +26,7 @@ def run_bfs(draw, grid, start, end):
                 if neighbor not in checked:
                     neighbor.make_closed()
                     checked.add(neighbor)
-                    came_from[neighbor] = node
+                    parent[neighbor] = node
                     next.append(neighbor)
                     
             if node != start:
@@ -34,13 +35,3 @@ def run_bfs(draw, grid, start, end):
 
         draw()
         
-def reconstruct_path(came_from, current, draw):
-    while current in came_from:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-
-        current = came_from[current]   # Goes backwards until start node
-        if current: current.make_path()
-        draw()

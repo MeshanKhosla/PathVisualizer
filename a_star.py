@@ -7,11 +7,11 @@ def h(p1, p2):
     x2, y2 = p2
     return abs(x1 - x2) + abs(y1 - y2)
 
-def run_a_star(draw, grid, start, end):
+def run_a_star(draw, grid, start, end, reconstruct_path):
     count = 0
     open_set = PriorityQueue()
     open_set.put((0, count, start))
-    came_from = {}
+    parent = {}
 
     g_score = {node: float("inf") for row in grid for node in row}
     g_score[start] = 0
@@ -29,7 +29,7 @@ def run_a_star(draw, grid, start, end):
         open_set_hash.remove(current_node)
 
         if current_node == end:
-            reconstruct_path(came_from, end, draw)
+            reconstruct_path(parent, end, draw)
             end.make_end()
             start.make_start()
             return True
@@ -38,7 +38,7 @@ def run_a_star(draw, grid, start, end):
             temp_g_score = g_score[current_node] + 1  # The weight for every node traversal is 1
 
             if temp_g_score < g_score[neighbor]:
-                came_from[neighbor] = current_node
+                parent[neighbor] = current_node
                 g_score[neighbor] = temp_g_score
                 f_score[neighbor] = temp_g_score + h(neighbor.get_coordinates(), end.get_coordinates())
                 if neighbor not in open_set_hash:
@@ -50,16 +50,3 @@ def run_a_star(draw, grid, start, end):
         if current_node != start:
             current_node.make_closed()
     return False  # Did not find path
-
-    
-def reconstruct_path(came_from, current, draw):
-    while current in came_from:
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-
-                
-        current = came_from[current]   # Goes backwards until start node
-        if current: current.make_path()
-        draw()

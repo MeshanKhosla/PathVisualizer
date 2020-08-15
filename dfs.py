@@ -1,7 +1,7 @@
 import pygame
 
 
-def run_dfs(draw, grid, start, end):
+def run_dfs(draw, grid, start, end, reconstruct_path):
     parent = {start: None}
     queue = [start]
     visited = set()
@@ -39,7 +39,7 @@ def run_dfs(draw, grid, start, end):
 
 
 
-
+# Throws error if using main file's reconstruct_path
 def reconstruct_path(came_from, current, draw):
     while current in came_from:
 
