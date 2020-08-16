@@ -7,5 +7,4 @@
 3. Breadth First Search
 4. Depth First Search
 
-### Hosted version [here](https://repl.it/@MeshanKhosla/PathVisualizer#main.py), but I suggest downloading the executable below for ideal performance  
-[coming soon]
+### Hosted version [here](https://repl.it/@MeshanKhosla/PathVisualizer#main.py)
