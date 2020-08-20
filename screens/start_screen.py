@@ -1,33 +1,33 @@
 import pygame
 import color_constants
 
-def start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen):
+def start_screen(WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main, alg_info_screen):
     on_start_screen = True
     padding = WIDTH // 100
 
     # Creates name text
-    name_text = roboto_30.render("Meshan Khosla", 1, color_constants.WHITE)
+    name_text = georgia_20.render("Meshan Khosla", 1, color_constants.WHITE)
 
     # Creates "Pathfinding Visualizer" text
-    starting_text_top = roboto_100.render(
+    starting_text_top = georgia_70.render(
         "Pathfinding", 1, color_constants.WHITE)
-    starting_text_bottom = roboto_100.render(
+    starting_text_bottom = georgia_70.render(
         "Visualizer", 1, color_constants.WHITE)
 
     # Creates instruction text
-    instruction_text = roboto_60.render(
+    instruction_text = georgia_40.render(
         "Instructions", 1, color_constants.WHITE)
-    instruction_1_text = roboto_30.render(
+    instruction_1_text = georgia_20.render(
         "1. Click which algorithm you want to visualize", 1, color_constants.WHITE)
-    instruction_2_text = roboto_30.render(
+    instruction_2_text = georgia_20.render(
         "2. Place the start and end position by right clicking on any grid spot", 1, color_constants.WHITE)
-    instruction_3_text = roboto_30.render(
+    instruction_3_text = georgia_20.render(
         "3. Place any barriers by right clicking/dragging on the grid", 1, color_constants.WHITE)
-    instruction_4_text = roboto_30.render(
+    instruction_4_text = georgia_20.render(
         "4. Press the space bar to visualize", 1, color_constants.WHITE)
-    instruction_5_text = roboto_30.render(
+    instruction_5_text = georgia_20.render(
         "If you'd like to try another path after the first one is done, press 'r'", 1, color_constants.WHITE)
-    instruction_6_text = roboto_30.render(
+    instruction_6_text = georgia_20.render(
         "If you'd like to return to this screen, press the ESC key", 1, color_constants.WHITE)
 
     # Creates algorithm buttons and position them responsively
@@ -41,17 +41,17 @@ def start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, 
                           WIDTH - (WIDTH // 3) + padding, (WIDTH // 4) - padding - 2, WIDTH // 8)
 
     # Creates algorithm button text
-    a_star_text = roboto_60.render("A*", 1, color_constants.WHITE)
-    bfs_text = roboto_60.render("BFS", 1, color_constants.WHITE)
-    dijkstra_text = roboto_60.render("Dijkstra", 1, color_constants.WHITE)
-    dfs_text = roboto_60.render("DFS", 1, color_constants.WHITE)
+    a_star_text = georgia_40.render("A*", 1, color_constants.WHITE)
+    bfs_text = georgia_40.render("BFS", 1, color_constants.WHITE)
+    dijkstra_text = georgia_40.render("Dijkstra", 1, color_constants.WHITE)
+    dfs_text = georgia_40.render("DFS", 1, color_constants.WHITE)
 
     # Creates algorithm info button text
-    a_star_info_text = roboto_30.render("A*", 1, color_constants.WHITE)
-    bfs_info_text = roboto_30.render("BFS", 1, color_constants.WHITE)
-    dijkstra_info_text = roboto_30.render("Dijkstra", 1, color_constants.WHITE)
-    dfs_info_text = roboto_30.render("DFS", 1, color_constants.WHITE)
-    info_text = roboto_30.render("info", 1, color_constants.WHITE)
+    a_star_info_text = georgia_20.render("A*", 1, color_constants.WHITE)
+    bfs_info_text = georgia_20.render("BFS", 1, color_constants.WHITE)
+    dijkstra_info_text = georgia_20.render("Dijkstra", 1, color_constants.WHITE)
+    dfs_info_text = georgia_20.render("DFS", 1, color_constants.WHITE)
+    info_text = georgia_20.render("info", 1, color_constants.WHITE)
     while on_start_screen:
         WIN.fill(color_constants.NAVY_BLUE)
 
@@ -70,17 +70,17 @@ def start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, 
         WIN.blit(instruction_text, (WIDTH // 2 - (round(name_text.get_width() // 1.5)),
                                     starting_text_top.get_height() + starting_text_bottom.get_height() + name_text.get_height() + 90))
         WIN.blit(instruction_1_text, (15, starting_text_top.get_height(
-        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 100))
+        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 110))
         WIN.blit(instruction_2_text, (15, starting_text_top.get_height(
         ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 140))
         WIN.blit(instruction_3_text, (15, starting_text_top.get_height(
-        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 180))
+        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 170))
         WIN.blit(instruction_4_text, (15, starting_text_top.get_height(
-        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 220))
+        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 200))
         WIN.blit(instruction_5_text, (15, starting_text_top.get_height(
-        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 260))
+        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 230))
         WIN.blit(instruction_6_text, (15, starting_text_top.get_height(
-        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 300))
+        ) + starting_text_bottom.get_height() + name_text.get_height() + instruction_text.get_height() + 260))
 
         # Draws Algorithm buttons
         pygame.draw.rect(WIN, color_constants.RED, a_star_btn)
@@ -150,15 +150,15 @@ def start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, 
                 # Clicked on info screens
                 if a_star_info_btn.collidepoint(mouse_pos):
                     on_start_screen = False
-                    alg_info_screen("A*", WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main)
+                    alg_info_screen("A*", WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main)
                 if bfs_info_btn.collidepoint(mouse_pos):
                     on_start_screen = False
-                    alg_info_screen("Breadth First Search", WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main)
+                    alg_info_screen("Breadth First Search", WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main)
                 if dijkstra_info_btn.collidepoint(mouse_pos):
                     on_start_screen = False
-                    alg_info_screen("Dijkstra", WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main)
+                    alg_info_screen("Dijkstra", WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main)
                 if dfs_info_btn.collidepoint(mouse_pos):
                     on_start_screen = False
-                    alg_info_screen("Depth First Search", WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main)
+                    alg_info_screen("Depth First Search", WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main)
 
         pygame.display.update()

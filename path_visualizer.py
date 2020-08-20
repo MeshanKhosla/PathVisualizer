@@ -10,10 +10,10 @@ from screens.alg_info_screen import alg_info_screen
 
 pygame.init()
 
-roboto_100 = pygame.font.SysFont("Roboto", 100)
-roboto_60 = pygame.font.SysFont("Roboto", 60)
-roboto_30 = pygame.font.SysFont("Roboto", 30)
-roboto_25 = pygame.font.SysFont("Roboto", 25)
+georgia_70 = pygame.font.SysFont("georgia", 70)
+georgia_40 = pygame.font.SysFont("georgia", 40)
+georgia_20 = pygame.font.SysFont("georgia", 20)
+georgia_18 = pygame.font.SysFont("georgia", 18)
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("Path Finding")
@@ -86,7 +86,7 @@ def main(win, width, alg):
 
                 if event.key == pygame.K_ESCAPE:  # Return to start screen
                     running = False
-                    start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
+                    start_screen(WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main, alg_info_screen)
     pygame.quit()
     exit()
 
@@ -147,5 +147,5 @@ def get_clicked_coordinates(pos, rows, width):
     return row, col
 
 if __name__ == '__main__':  
-    start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
+    start_screen(WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main, alg_info_screen)
 

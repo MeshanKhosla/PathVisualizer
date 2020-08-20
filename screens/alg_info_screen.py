@@ -3,12 +3,12 @@ import color_constants
 from screens.alg_info import info
 from screens.start_screen import start_screen
 
-def alg_info_screen(alg, WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main):
+def alg_info_screen(alg, WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main):
     on_alg_info_screen = True
 
     # Creates back button and title text
     back_arrow = pygame.image.load('./assets/arrow.png')
-    alg_title_text = roboto_100.render(alg, 1, color_constants.WHITE)
+    alg_title_text = georgia_70.render(alg, 1, color_constants.WHITE)
 
     # Images
     if alg == "A*":
@@ -36,7 +36,7 @@ def alg_info_screen(alg, WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100
         # Loops through every line of info b/c pygame doesn't have multi-line support :(
         cur_height = WIDTH // 5
         for i in range(1, len(info[alg]) + 1):
-            alg_info_text = roboto_25.render(info[alg][i], 1, color_constants.WHITE)
+            alg_info_text = georgia_18.render(info[alg][i], 1, color_constants.WHITE)
             WIN.blit(alg_info_text, (15, cur_height))
             cur_height += 25
 
@@ -52,10 +52,10 @@ def alg_info_screen(alg, WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100
                 mouse_pos = event.pos
                 if back_arrow.get_rect().collidepoint(mouse_pos):
                     on_alg_info_screen = False
-                    start_screen(WIN, WIDTH, roboto_30, roboto_25, roboto_60, roboto_100, main, alg_info_screen)
+                    start_screen(WIN, WIDTH, georgia_20, georgia_18, georgia_40, georgia_70, main, alg_info_screen)
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:  # Return to start screen
                     on_alg_info_screen = False
-                    start_screen(WIN, WIDTH, roboto_25, roboto_30, roboto_60, roboto_100, main, alg_info_screen)
+                    start_screen(WIN, WIDTH, georgia_18, georgia_20, georgia_40, georgia_70, main, alg_info_screen)
 
         pygame.display.update()
