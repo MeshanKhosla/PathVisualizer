@@ -18,7 +18,6 @@ WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("Path Finding")
 
-
 def reconstruct_path(parent, current, draw):
     while current in parent:
         for event in pygame.event.get():
